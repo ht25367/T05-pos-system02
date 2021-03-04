@@ -50,11 +50,11 @@ li {
 li:last-child {
 	margin-left:15px;
 }
-#item_name, #item_price, #item_price_sum {
+#item_name, #item_price, #item_price_total {
 	border: 1px solid rgb(187, 187, 187);
 	background-color:#dfdcdc;
 }
-input {
+input,select {
 	height: 26px;
 }
 
