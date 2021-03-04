@@ -1,0 +1,87 @@
+
+body {
+	margin:0;
+}
+
+.cf:after {
+	content: "";
+	display: block;
+	height: 0;
+	clear: both;
+}
+
+header {
+	background:linear-gradient(#dfdcdc,hsl(0, 5%, 80%));
+	height: 35px;
+	padding: 8px;
+	line-height: 6px;
+	width:auto;
+}
+
+div.container{
+	background-color:white;
+	height: auto;
+	padding: 0px 25px 5px 25px;
+}
+
+table {
+	width: 800px;
+	margin-top:15px;
+	/* margin-bottom:0; */
+}
+td {
+	margin-right:20px;
+}
+#read_item_list {
+	margin-bottom:0;
+	font-size:11;
+	display:block;
+	float:right;
+}
+ul {
+	padding-left: 1em;
+	text-align:center;
+}
+li {
+	list-style: none;
+	float:left;
+	margin-right: 15px;
+}
+li:last-child {
+	margin-left:15px;
+}
+#item_name, #item_price, #item_price_sum {
+	border: 1px solid rgb(187, 187, 187);
+	background-color:#dfdcdc;
+}
+input {
+	height: 26px;
+}
+
+
+
+.right_button {
+	background:linear-gradient(#dfdcdc,#cfcaca);
+	vertical-align: bottom;
+	text-align: center;
+	width: 115px;
+	
+}
+button {
+	margin-bottom: 1.2em;
+}
+
+
+.item_list {
+	height: 100px;
+	width:100%;
+	/* width: 200px; */
+	/* margin-bottom:1.2em; */
+}
+
+.order_list {
+	width: 500px;
+	height: 130px;
+	overflow: scroll;
+	overflow-x: hidden;
+}
