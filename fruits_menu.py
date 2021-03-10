@@ -54,9 +54,41 @@ class Order:
 			self.order_list.append(Item(code,name,price,cnt))
 			# JS に書き出し
 			eel.order_list_add_write_js(self.item_data_to_text(code,name,price,cnt))
-
 		eel.order_list_add_write_js("-------------------------------------\n")
 		eel.order_list_add_write_js("合計                "+str(self.order_cnt).rjust(3)+"個     "+str(self.order_price).rjust(5)+"円\n")
+
+	def del_order_list(self,code, name, price, cnt):
+		del_flg = -1
+		del_cnt = 0
+		i = 0
+		# price:str、cnt:str、item_price:str、item_cnt:str
+		for item in self.order_list:
+			if item.item_code == code:
+				item.item_code = code
+				item.item_name = name
+				item.item_price = price
+				if int(item.item_cnt) <= int(cnt):
+					del_cnt = int(item.item_cnt)
+					del_flg = i
+				else:
+					del_cnt = int(cnt)
+					del_flg = -2
+				item.item_cnt = str(int(item.item_cnt) - del_cnt)
+				self.order_cnt -= del_cnt
+				self.order_price -= int(price)*del_cnt
+			# JS に書き出し
+			if item.item_cnt != "0":
+				eel.order_list_add_write_js(self.item_data_to_text(item.item_code,item.item_name,item.item_price,item.item_cnt))
+			i += 1
+		if del_flg == -1:
+			i = name.find("　")
+			eel.alert_js(f"「{name[:i]}」はかごに入っていません")
+		if del_flg >= 0:
+			self.order_list.pop(del_flg)
+		if len(self.order_list) != 0:
+			eel.order_list_add_write_js("-------------------------------------\n")
+			eel.order_list_add_write_js("合計                "+str(self.order_cnt).rjust(3)+"個     "+str(self.order_price).rjust(5)+"円\n")
+
 
 
 	def order_payment(self,cash):
@@ -76,7 +108,6 @@ class Order:
 				eel.alert_js(f"{cash}円お預かりし、{cash-self.order_price}円のおつりになります。")
 			self.receipt_txt(cash)
 			eel.payment_result_js(0)
-	
 
 	#レシートをファイルに出力
 	def receipt_txt(self,cash):
@@ -85,14 +116,10 @@ class Order:
 		if not os.path.isfile(file_name):
 			with open( file_name+".txt", encoding="UTF-8", mode="w") as f:
 				# ファイルに書き込む
-				# self.order_cnt=0
-				# self.order_price=0
 				f.write("\n" + file_name+"\n")
 				f.write("-------------------------------------\n")
 				for item in self.order_list:                         #注文の合計を表示
 					f.write(self.item_data_to_text(item.item_code,item.item_name,item.item_price,item.item_cnt))
-					# name_width = 9-get_zen_count(item.item_name)
-					# f.write(f"［{item.item_code}:{item.item_name:{name_width}}{item.price}円 x{item.item_cnt:3}点 ={item.get_price():5}円］\n")
 
 				# 合計点数、合計金額の表示
 				f.write("-------------------------------------\n")

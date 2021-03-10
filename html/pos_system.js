@@ -40,7 +40,7 @@ window.onload = function(){
 	// 注文データのインスタンス生成
 	eel.order_init();
 }
-// [商品リスト読み込み] ボタン read_item_list
+// [商品リスト(csvファイル)読み込み] ボタン read_item_list
 read_item_list.addEventListener("change",file_select,false);
 function file_select(){
 	eel.set_item_master_csv(read_item_list.files[0].name);
@@ -86,18 +86,32 @@ function cnt_change() {
 // [かごに追加] ボタン
 add_order.addEventListener( 'click',add_order_js , false );
 function add_order_js() {
+	if(item_input_ck()){
+		eel.add_order_list(item_code.value,item_name.value,item_price.value,item_cnt.value);
+		order_input_clear();
+	}
+}
+// [かごから削除] ボタン
+del_order.addEventListener( 'click',del_order_js , false );
+function del_order_js() {
+	if(item_input_ck()){
+		eel.del_order_list(item_code.value,item_name.value,item_price.value,item_cnt.value);
+		order_input_clear();
+	}
+}
+// 商品コード入力チェック
+function item_input_ck(){
 	if(item_cnt.value == 0){
 		alert("注文数を入力して下さい");
 		item_cnt.focus();
+		return false;
 	}else if (item_name.value=="") {
 		alert("商品コードを入力して下さい");
 		item_code.focus();
-		// document.getElementById('item_code').focus();
+		return false;
 	}else{
 		order_list.value="";
-		// 注文マスターに追加する関数を呼び出し
-		eel.add_order_list(item_code.value,item_name.value,item_price.value,item_cnt.value);
-		order_input_clear();
+		return true;
 	}
 }
 // 買い物かご(order_list)に追記
@@ -120,6 +134,7 @@ function cancel_pay(){
 pay_here.addEventListener( 'click',order_pay , false );
 function order_pay(){
 	if(order_list.value == ""){
+		// 処理を行わない
 	}else if( pay_here.textContent == "お　会　計"){
 		pay_here.textContent="支　払　う";
 		for(let i in document.getElementsByClassName("pay_input") ) {
@@ -147,6 +162,7 @@ function payment_result_js(rst){
 		cash.value="";
 		order_list.value="";
 		eel.order_init();
+
 		// cancel_pay();
 		pay_here.textContent="お　会　計";
 		cash.style.display="none";
@@ -155,4 +171,4 @@ function payment_result_js(rst){
 		pay_cancel.style.display="none";
 
 	}
-};
+}
