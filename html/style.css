@@ -1,6 +1,7 @@
 
 body {
-	margin:0;
+	margin:0 auto ;
+	width: 850;
 }
 
 .cf:after {
@@ -25,18 +26,26 @@ div.container{
 }
 
 table {
-	width: 800px;
+	width: 750px;
 	margin-top:15px;
-	/* margin-bottom:0; */
 }
 td {
 	margin-right:20px;
+
 }
 #read_item_list {
-	margin-bottom:0;
-	font-size:11;
-	display:block;
-	float:right;
+	display:none;
+}
+#read_item_list_label{
+	font-size: 12;
+	background-color:#ececec;
+	border-radius: 3px;
+	border:1px solid  #555;
+	line-height: 25px;
+	padding:2px 15px;
+}
+#read_item_list_label:hover {
+	background-color:#e3e3e3;
 }
 ul {
 	padding-left: 1em;
@@ -50,10 +59,6 @@ li {
 li:last-child {
 	margin-left:15px;
 }
-#item_name, #item_price, #item_price_total {
-	border: 1px solid rgb(187, 187, 187);
-	background-color:#dfdcdc;
-}
 input,select {
 	height: 26px;
 }
@@ -64,24 +69,29 @@ input,select {
 	background:linear-gradient(#dfdcdc,#cfcaca);
 	vertical-align: bottom;
 	text-align: center;
-	width: 115px;
-	
+	width: 100px;
 }
 button {
 	margin-bottom: 1.2em;
 }
+.pay_input {
+	display: none;
+	text-align:center;
+}
 
 
-.item_list {
+#item_list {
 	height: 100px;
 	width:100%;
+	padding:3px;
 	/* width: 200px; */
 	/* margin-bottom:1.2em; */
 }
 
-.order_list {
-	width: 500px;
+#order_list {
+	width: 480px;
 	height: 130px;
 	overflow: scroll;
 	overflow-x: hidden;
+	padding:3px;
 }

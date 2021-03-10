@@ -1,7 +1,7 @@
 <html>
 	<head>
-		<title>T05-POS system</title>
-		<link rel="stylesheet" href="./style.css">
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="./style.css"  type="text/css" media="all">
 		<title>T05 POS-system</title>
 	</head>
 
@@ -11,36 +11,37 @@
 		</header>
 
 		<div class="container">
-		<!-- <hr> 注文エリア（３列）-->
+		<!-- 注文エリア（３列）-->
 		<table>
 		<tr>
 			<!-- 商品マスター一覧 -->
 			<td>
 				商品リスト<br>
-				<textarea class="item_list"></textarea>
+				<textarea id="item_list" readonly></textarea>
 				<br>
-				<button id="read_item_list">商品リスト読み込み</button>
+				<label for="read_item_list" id="read_item_list_label">商品リスト読み込み</label>
+				<input type="file" id="read_item_list" accept=".csv"/>
 			</td>
 
 			<!-- 注文入力エリア -->
 			<td class="cf" >
-				<p>　ご注文の商品を入力して下さい。<br></p>
+				<p>　商品コードを入力して下さい。<br></p>
 				<ul>
 					<li>
 						<label for="item_code">商品ｺｰﾄﾞ</label><br>
-						<input type="text" id="item_code" maxlength="3" size="1"/>
+						<input type="tel" min="0" id="item_code" maxlength="3" size="1"/>
 					</li>
 					<li>
 						<label>商品名</label><br>
-						<label id="item_name"/>　　　　　　</label>
+						<input type=text id="item_name" size="8" value ="" disabled/>
 					</li>
 					<li>
 						<label>価格</label><br>
-						<label id="item_price"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>円
+						<input id="item_price" size="3" disabled/>円
 					</li>
 					<li>
-						<label for="order_cnt">注文数</label><br>
-						<select id="order_cnt">
+						<label for="item_cnt">注文数</label><br>
+						<select id="item_cnt">
 							<option selected="selected">0</option>
 							<option>1</option>
 							<option>2</option>
@@ -53,11 +54,10 @@
 							<option>9</option>
 							<option>10</option>
 						</select>
-						<!--<input type="text" id="order_cnt" maxlength="3" size="1">-->
 					</li>
 					<li>
 						<label>合計</label><br>
-						<label id="item_price_total">　&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>円
+						<input id="item_price_total" size="3" value ="" disabled>円
 					</li>
 				
 				</ul>
@@ -65,8 +65,8 @@
 
 			<!-- 注文関連ボタン -->
 			<td class="right_button">
-				<button>かごに追加</button><br>
-				<button>入力クリア</button>
+				<button id="add_order">かごに追加</button><br>
+				<button tpye="reset" id="input_clear">入力クリア</button>
 			</td>
 		</tr>
 		</table>
@@ -80,31 +80,24 @@
 			<!-- オーダー一覧 -->
 			<td>
 				買い物かご<br>
-				<textarea class="order_list" ></textarea>
+				<textarea id="order_list" readonly></textarea>
+			</td>
+			<td style="padding-left:32px;">
+				<label for="cash" id="cash_label" class="pay_input">金額入力</label>
+				<input id="cash" type="url" min="0" maxlength="6" size="5" value ="" class="pay_input"/>
+				<br><label style="font-size:11px;" class="pay_input" id="cash_label2">(*半角)</label>
 			</td>
 
 			<!-- 会計関連ボタン -->
 			<td class="right_button">
-				<button>お　会　計</button>
+				<button id="pay_here">お　会　計</button>
+				<button id="pay_cancel" class="pay_input">キャンセル</button>
 			</td>
 		</tr>
 		</table>
 		</div>
-		
-		<footer>
-		</footer>
 
-			<script type="text/javascript" src="./eel.js"></script>
-			<script>
-				{% comment %} search.addEventListener('click', () => {
-						eel.kimetsu_search(word.value,file.value)
-				})
-
-				eel.expose(view_log_js)
-				function view_log_js(text){
-					search_log.value += text + "\n"
-				} {% endcomment %}
-			</script>
-		
+		<script type="text/javascript" src="./eel.js"></script>
+		<script type="text/javascript" src="./pos_system.js"></script>
 	</body>
 </html>
